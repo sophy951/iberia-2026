@@ -677,8 +677,8 @@ function buildNames(){
     grid.querySelectorAll(".name-btn").forEach(x => x.classList.remove("active"));
     b.classList.add("active");
     const m = MEMBERS.find(x => x.name === b.dataset.name);
-    render(m);
     collapsePicker(m);
+    render(m);
   }));
 }
 buildNames();
