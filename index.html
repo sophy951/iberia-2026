@@ -1,0 +1,689 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026 葡西巡演 · 行前手冊</title>
+<style>
+  /* 淺色現代：暖白底、深墨字、燃橙珊瑚點綴；全非襯線；手機優先（刻意單一淺色主題） */
+  :root{
+    --paper:#F7F6F2; --card:#FFFFFF; --raise:#F1EFE9; --ink:#1B1815; --ink-soft:#6C6862;
+    --azul:#D2542A; --azul-deep:#A83E1C; --azul-wash:#FBEDE6;
+    --saffron:#A97B2C; --saffron-wash:#F7EEDC;
+    --terra:#C43A1E;
+    --green:#2E7D46;
+    --line:#E6E2D9;
+    --shadow:0 1px 2px rgba(30,24,18,.04),0 10px 30px rgba(30,24,18,.07);
+    --radius:14px;
+    --font-body:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;
+    --font-util:ui-monospace,"SFMono-Regular",Menlo,monospace;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;}
+  .wrap{font-family:var(--font-body);background:var(--paper);color:var(--ink);
+    min-height:100vh;line-height:1.65;-webkit-font-smoothing:antialiased;}
+  .container{max-width:760px;margin:0 auto;padding:0 16px 90px;}
+  b{font-weight:700;} a{color:var(--azul);}
+
+  /* ---------- Hero ---------- */
+  header.hero{position:relative;overflow:hidden;background:var(--paper);color:var(--ink);
+    padding:64px 20px 36px;text-align:center;border-bottom:1px solid var(--line);}
+  header.hero::before{content:"";position:absolute;left:50%;top:-140px;transform:translateX(-50%);
+    width:min(720px,130%);height:420px;pointer-events:none;
+    background:radial-gradient(ellipse at center,rgba(210,84,42,.12),rgba(210,84,42,0) 70%);}
+  .hero-inner{position:relative;max-width:640px;margin:0 auto;}
+  .eyebrow{font-family:var(--font-util);font-size:11.5px;letter-spacing:.3em;
+    text-transform:uppercase;color:var(--azul);margin:0 0 16px;}
+  header.hero h1{font-weight:800;font-size:clamp(28px,7vw,46px);line-height:1.14;
+    letter-spacing:-.02em;margin:0;text-wrap:balance;}
+  header.hero .sub{margin:16px auto 0;max-width:32em;font-size:15px;color:var(--ink-soft);text-wrap:balance;}
+  .trip-meta{display:flex;flex-wrap:wrap;gap:7px 8px;justify-content:center;margin-top:22px;}
+  .trip-meta span{font-family:var(--font-util);font-size:12px;color:var(--ink-soft);
+    background:var(--card);border:1px solid var(--line);padding:6px 11px;border-radius:999px;}
+
+  /* ---------- 選人 ---------- */
+  .picker{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    margin-top:-24px;position:relative;z-index:2;padding:22px 18px;box-shadow:var(--shadow);}
+  .picker h2{font-size:19px;font-weight:800;margin:0 0 4px;}
+  .picker p{margin:0 0 15px;color:var(--ink-soft);font-size:13.5px;}
+  .search{width:100%;font-family:var(--font-body);font-size:16px;padding:12px 14px;
+    border:1px solid var(--line);border-radius:11px;background:var(--paper);color:var(--ink);margin-bottom:14px;}
+  .search:focus{outline:2px solid var(--azul);outline-offset:1px;border-color:var(--azul);}
+  .name-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:9px;}
+  .name-btn{font-family:var(--font-body);font-size:15px;cursor:pointer;text-align:left;
+    background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:11px;
+    padding:12px 14px;min-height:48px;transition:background .15s,border-color .15s;}
+  .name-btn:hover{border-color:var(--azul);background:var(--azul-wash);}
+  .name-btn:focus-visible{outline:2px solid var(--azul);outline-offset:2px;}
+  .name-btn.active{background:var(--azul);color:var(--paper);border-color:var(--azul);font-weight:700;}
+  .name-btn .inst{font-size:12px;opacity:.7;margin-left:6px;}
+  .name-btn.active .inst{opacity:.9;}
+  .common-btn{margin-top:13px;width:100%;font-family:var(--font-body);font-size:14px;
+    background:transparent;color:var(--azul);border:1px dashed var(--azul);border-radius:11px;padding:12px;cursor:pointer;}
+  .common-btn:hover{background:var(--azul-wash);}
+  /* 選完名字後收起名單，只留一條可再展開的小列 */
+  .picker.collapsed{padding:12px 14px;}
+  .picker.collapsed h2,.picker.collapsed .picker-hint,.picker.collapsed .name-grid{display:none;}
+  .picker-current{display:none;width:100%;font-family:var(--font-body);font-size:15px;cursor:pointer;
+    background:var(--azul-wash);border:1px solid var(--azul);color:var(--ink);border-radius:11px;
+    padding:12px 14px;align-items:center;justify-content:space-between;gap:10px;text-align:left;}
+  .picker.collapsed .picker-current{display:flex;}
+  .picker-current .cur-name{font-weight:800;}
+  .picker-current .cur-inst{font-weight:400;color:var(--ink-soft);}
+  .picker-current .cur-act{font-family:var(--font-util);font-size:12px;color:var(--azul);font-weight:700;white-space:nowrap;flex:none;}
+
+  #dossier{margin-top:22px;}
+  #dossier > *{animation:rise .4s cubic-bezier(.2,.7,.2,1) both;}
+  @keyframes rise{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+  @media (prefers-reduced-motion:reduce){#dossier > *{animation:none;}}
+
+  /* ---------- 抬頭卡 ---------- */
+  .id-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px 20px 18px;position:relative;overflow:hidden;}
+  .id-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--azul);}
+  .id-card .hi{font-family:var(--font-util);font-size:11.5px;letter-spacing:.22em;color:var(--azul);text-transform:uppercase;}
+  .id-card .who{font-size:28px;font-weight:800;margin:5px 0 8px;letter-spacing:-.02em;}
+  .chips{display:flex;flex-wrap:wrap;gap:7px;}
+  .chip{font-family:var(--font-util);font-size:12px;background:var(--azul-wash);color:var(--ink);
+    border:1px solid var(--line);padding:5px 11px;border-radius:999px;}
+
+  /* ---------- 分頁列（sticky） ---------- */
+  .tabs{position:sticky;top:0;z-index:20;display:grid;grid-template-columns:repeat(3,1fr);gap:6px;
+    background:var(--paper);padding:12px 0 12px;margin-top:18px;}
+  .tab-btn{font-family:var(--font-body);font-size:13px;font-weight:700;color:var(--ink-soft);
+    background:var(--card);border:1px solid var(--line);border-radius:12px;padding:9px 4px;cursor:pointer;
+    display:flex;flex-direction:column;align-items:center;gap:3px;min-height:56px;justify-content:center;line-height:1.2;}
+  .tab-btn .ic{font-size:18px;}
+  .tab-btn.active{background:var(--azul);color:var(--paper);border-color:var(--azul);}
+  .tab-btn:focus-visible{outline:2px solid var(--azul);outline-offset:2px;}
+
+  .panel{padding-top:2px;}
+  .panel-lead{color:var(--ink-soft);font-size:13px;margin:2px 2px 14px;}
+  /* 統一卡片：行李／演出／須知 全用同一種卡片，視覺對齊「行程」 */
+  .lcard,.group{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    margin-top:12px;padding:2px 16px 12px;}
+  .lcard:first-child,.group:first-child{margin-top:0;}
+  .lcard-h,.group h4{display:flex;align-items:center;gap:12px;margin:0;padding:12px 0 9px;font-size:17px;font-weight:800;}
+  .lcard-h .ci,.group h4 .gi{font-size:20px;font-weight:800;color:var(--azul);flex:none;min-width:24px;text-align:center;line-height:1;}
+  .lcard-h .cn{flex:1;min-width:0;}
+  .lcard-h .cc{font-family:var(--font-util);font-size:12.5px;color:var(--ink-soft);font-weight:400;white-space:nowrap;flex:none;}
+  .lcard-h .caret{color:var(--ink-soft);transition:transform .2s;flex:none;}
+  details.lcard[open] > summary .caret{transform:rotate(180deg);}
+  details.lcard:not([open]) > summary.lcard-h{padding:12px 0;}
+  details.lcard > summary{list-style:none;cursor:pointer;}
+  details.lcard > summary::-webkit-details-marker{display:none;}
+  .cat-body{padding:0;}
+  .sublabel{font-size:13px;font-weight:700;color:var(--ink-soft);margin:22px 2px 8px;}
+  .kv{display:flex;gap:10px;padding:9px 0;border-top:1px solid var(--line);font-size:14px;flex-wrap:wrap;}
+  .kv .k{color:var(--ink-soft);flex:none;min-width:72px;}
+  .kv .v{font-variant-numeric:tabular-nums;flex:1;min-width:0;}
+
+  /* 條列 */
+  ul.items{list-style:none;margin:0;padding:2px 0 2px;}
+  ul.items li{display:flex;gap:11px;padding:9px 0;border-top:1px solid var(--line);align-items:flex-start;}
+  .bullet{color:var(--azul);flex:none;margin-top:.3em;font-size:11px;}
+  .item-text{flex:1;font-size:15px;line-height:1.6;}
+  .todo{color:var(--saffron);border-bottom:1.5px dashed var(--saffron);
+    background:var(--saffron-wash);padding:0 3px;border-radius:3px;font-weight:600;}
+
+  /* 欄位（演出、城市明細） */
+  .field{padding:13px 0;border-top:1px solid var(--line);}
+  .flab{font-family:var(--font-util);font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--saffron);font-weight:700;display:block;margin-bottom:4px;}
+  .ftext{font-size:15px;line-height:1.62;}
+  .addr{font-size:13.5px;line-height:1.55;color:var(--ink-soft);margin-top:4px;}
+
+  /* ---------- 行李 checklist ---------- */
+  .lug{background:var(--raise);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:14px;}
+  .lug .lug-title{font-weight:800;margin-bottom:8px;font-size:14px;color:var(--azul);}
+  .lug .lug-row{display:flex;gap:10px;padding:4px 0;flex-wrap:wrap;font-size:14px;}
+  .lug .k{color:var(--ink-soft);flex:none;min-width:72px;}
+  .lug .v{font-variant-numeric:tabular-nums;}
+  .status-pill{display:inline-block;font-family:var(--font-util);font-size:12px;font-weight:700;padding:2px 10px;border-radius:999px;}
+  .status-pill.ck{background:var(--azul-wash);color:var(--azul);border:1px solid var(--azul);}
+  .status-pill.cabin{background:#E7F3EB;color:#2E7D46;border:1px solid #9FD3B2;}
+  .status-pill.tbd{background:var(--saffron-wash);color:var(--saffron);border:1px solid var(--saffron);}
+  .premise{background:none;border:none;border-left:3px solid var(--azul);border-radius:0;
+    padding:2px 0 6px 13px;font-size:14px;margin:2px 0 12px;color:var(--ink);line-height:1.62;}
+  .premise b{color:var(--azul);font-weight:700;}
+  .premise .kg{font-size:16px;font-weight:800;color:var(--azul);}
+  .pitem{border-top:1px solid var(--line);}
+  .pitem-row{display:flex;align-items:flex-start;gap:8px;}
+  .check{display:flex;gap:13px;align-items:flex-start;padding:13px 0;cursor:pointer;flex:1;min-width:0;}
+  .info{flex:none;align-self:center;font-family:var(--font-util);font-size:12px;color:var(--azul);
+    background:var(--card);border:1px solid var(--line);border-radius:8px;padding:5px 10px;cursor:pointer;white-space:nowrap;}
+  .info:hover{background:var(--azul-wash);border-color:var(--azul);}
+  .info[aria-expanded="true"]{background:var(--azul-wash);border-color:var(--azul);}
+  .detail{font-size:13.5px;color:var(--ink-soft);line-height:1.65;padding:0 4px 13px 37px;}
+  .detail[hidden]{display:none;}
+  .check input{appearance:none;-webkit-appearance:none;width:24px;height:24px;border:2px solid var(--ink-soft);
+    border-radius:7px;flex:none;margin:1px 0 0;cursor:pointer;background:transparent;position:relative;transition:.12s;}
+  .check input:checked{background:var(--azul);border-color:var(--azul);}
+  .check input:checked::after{content:"✓";position:absolute;color:var(--paper);font-size:15px;font-weight:900;left:4px;top:0;}
+  .check input:focus-visible{outline:2px solid var(--azul);outline-offset:2px;}
+  .ctext{font-size:15px;line-height:1.55;flex:1;}
+  .check.done .ctext{color:var(--ink-soft);text-decoration:line-through;}
+  .fy-tag{display:inline-block;font-family:var(--font-util);font-size:11px;font-weight:700;
+    background:var(--card);color:var(--saffron);border:1px solid var(--saffron);border-radius:6px;padding:1px 7px;margin-right:7px;white-space:nowrap;}
+  .lv-dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:9px;vertical-align:middle;flex:none;}
+  .lv1{background:#D14A2E;} .lv2{background:#3A76C4;} .lv3{background:#9A968D;} .lv-adv{background:var(--azul);}
+  .qty{color:var(--ink-soft);}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center;font-size:12.5px;color:var(--ink-soft);
+    background:none;border:none;padding:0 2px;margin:0 0 4px;}
+  .legend .lg{display:inline-flex;align-items:center;gap:6px;} .legend b{color:var(--ink);font-weight:700;}
+  .legend .dot{display:inline-block;width:9px;height:9px;border-radius:50%;}
+
+  /* ---------- 每日行程 timeline ---------- */
+  .seg{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px 12px;margin-top:12px;}
+  .seg:first-child{margin-top:0;}
+  .seg-head{display:flex;align-items:center;gap:12px;margin-bottom:0;}
+  details.seg > summary{list-style:none;cursor:pointer;}
+  details.seg > summary::-webkit-details-marker{display:none;}
+  details.seg[open] > summary.seg-head{margin-bottom:10px;}
+  .seg-caret{color:var(--ink-soft);transition:transform .2s;flex:none;margin-left:6px;}
+  details.seg[open] > summary .seg-caret{transform:rotate(180deg);}
+  .seg-n{font-size:22px;font-weight:800;color:var(--azul);flex:none;line-height:1;min-width:26px;text-align:center;}
+  .seg-mid{flex:1;min-width:0;}
+  .seg-city{font-size:17px;font-weight:800;display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
+  .seg-meta{font-size:12.5px;color:var(--ink-soft);margin-top:1px;}
+  .seg-dates{font-family:var(--font-util);font-size:12.5px;color:var(--ink-soft);white-space:nowrap;flex:none;}
+  .seg.travel{border-style:dashed;}
+  .seg.hot .seg-n{color:var(--terra);}
+  .heat{display:inline-block;font-family:var(--font-util);font-size:10.5px;font-weight:700;
+    color:var(--terra);border:1px solid var(--terra);border-radius:5px;padding:0 6px;}
+  .meals{color:var(--ink-soft);font-size:12.5px;margin:0 0 10px;}
+  .seg-days{display:flex;flex-direction:column;gap:8px;}
+  .day{background:var(--raise);border:1px solid var(--line);border-radius:10px;padding:10px 12px;}
+  .day-h{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .dd{font-family:var(--font-util);font-weight:700;font-size:13px;flex:none;}
+  .dtag{font-family:var(--font-util);font-size:10.5px;font-weight:700;color:var(--saffron);
+    border:1px solid var(--saffron);border-radius:5px;padding:0 6px;}
+  .dcity{font-size:14px;flex:1;min-width:80px;font-weight:600;}
+  .dshow{font-family:var(--font-util);font-size:12px;font-weight:700;color:var(--azul);white-space:nowrap;font-variant-numeric:tabular-nums;}
+  .dnote{color:var(--ink-soft);font-size:12.5px;margin-top:5px;line-height:1.55;}
+  .seg-more{margin-top:10px;border-top:1px solid var(--line);padding-top:2px;}
+  .seg-more summary{list-style:none;cursor:pointer;font-family:var(--font-util);font-size:12px;
+    color:var(--azul);padding:8px 0 4px;font-weight:700;letter-spacing:.04em;}
+  .seg-more summary::-webkit-details-marker{display:none;}
+  .room-box{background:var(--azul-wash);border:1px solid var(--azul);border-radius:10px;
+    padding:10px 13px;margin-top:10px;font-size:14px;}
+  .room-box b{color:var(--azul);font-weight:800;}
+
+  .empty{text-align:center;color:var(--ink-soft);padding:24px 16px;font-size:15px;}
+  footer.foot{text-align:center;color:var(--ink-soft);font-size:12.5px;margin-top:36px;line-height:1.8;}
+  footer.foot code{font-family:var(--font-util);background:var(--azul-wash);color:var(--azul);padding:1px 6px;border-radius:5px;font-size:11.5px;}
+
+  @media (max-width:430px){
+    .name-grid{grid-template-columns:1fr 1fr;}
+    .tab-btn{font-size:12px;}
+    header.hero{padding:52px 18px 30px;}
+  }
+</style>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">藝姿舞集 · Gira Ibérica 2026</p>
+      <h1>葡萄牙・西班牙巡演 · 行前手冊</h1>
+      <div class="trip-meta">
+        <span>7/30 出發</span><span>8/29 返台</span><span>31 天 · 4 站</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="picker" id="picker">
+      <h2>你是哪一位？</h2>
+      <p class="picker-hint">點你的名字，就會看到你的樂器行李和專屬提醒。</p>
+      <div class="name-grid" id="nameGrid"></div>
+      <button class="picker-current" id="pickerCurrent" type="button" hidden></button>
+    </div>
+
+    <div id="dossier"></div>
+
+    <footer class="foot">
+      這是一份會更新的手冊。三個西班牙藝術節的 2026 參演名單通常七月底才公布，屆時以官方為準。<br>
+      手冊製作 · 葉祖昀｜藝姿舞集 30 週年 · 2026 西葡藝術節巡演
+    </footer>
+  </div>
+</div>
+
+<script>
+/* =========================================================================
+   ★★★ DATA — 要改的東西都在這一區 ★★★
+   ========================================================================= */
+
+/* ---------- 團員名單 ----------
+   gender：女 / 男　role：留空＝團員　lug：樂器行李
+   room：馬德里 8/26–8/28 房號與室友（no 房號、mate 室友）　notes：個人專屬提醒 */
+const MEMBERS = [
+  { name:"楊倩姿", instrument:"揚琴", gender:"女", role:"", lug:{ status:"待確認" }, stand:{ note:"待確認（蘇亮誠或許可借一支）" }, room:{no:"6", mate:"陳妡萌（＋1 小孩）"}, notes:"" },
+  { name:"葉祖昀", instrument:"琵琶", gender:"女", role:"", lug:{ case:"長109 × 寬37 × 高20 cm ・ 5.7kg", boxing:"裝在一大紙箱，中間塞舞衣戲服等緩衝；琴盒內塞泡棉保護琴頭。" }, stand:{bring:false, note:"與林博欣共用一支（由林博欣攜帶）"}, room:{no:"13", mate:"林博欣"}, notes:"" },
+  { name:"林博欣", instrument:"琵琶", gender:"女", role:"", lug:{ case:"長108 × 寬36 × 高19 cm ・ 5.2kg", boxing:"裝在一大紙箱，中間塞舞衣戲服等緩衝；琴盒內塞泡棉保護琴頭。" }, stand:{bring:true, kg:"1.06kg", note:"與葉祖昀共用"}, room:{no:"13", mate:"葉祖昀"}, notes:"" },
+  { name:"程郁茹", instrument:"中阮", gender:"女", role:"", lug:{ case:"長110 × 寬46 × 高15 cm ・ 4kg", boxing:"裝在一大紙箱，中間塞舞衣戲服等緩衝；琴盒內塞泡棉保護琴頭。", status:"託運" }, stand:{bring:true, kg:"1.2kg"}, room:{no:"15", mate:"葉紘辰"}, notes:"" },
+  { name:"葉紘辰", instrument:"打擊／嗩吶", gender:"女", role:"", lug:{ status:"託運", boxing:"需跟小梁老師討論", note:"打擊樂器需先盤點清單；嗩吶託運需告知小梁老師。" }, stand:{ note:"與林伽羽共用，兩人帶一支即可（1.2kg／1.14kg）" }, room:{no:"15", mate:"程郁茹"}, notes:"" },
+  { name:"趙佑恩", instrument:"二胡", gender:"男", role:"", lug:{ inst:"長81 × 寬13 cm ・ 0.95kg", case:"長88 × 寬18 × 高7 cm ・ 3.6kg", status:"可能需硬殼直接託運（待確認）" }, stand:{bring:true, kg:"1.1kg", note:"與盧郁涵共用"}, room:{no:"5", mate:"楊政穎"}, notes:"" },
+  { name:"盧郁涵", instrument:"二胡", gender:"女", role:"", lug:{ inst:"長81 × 寬13 cm", case:"長90 × 寬17 × 高7 cm ・ 2.95kg", status:"可能需硬殼直接託運（待確認）" }, stand:{bring:false, note:"與趙佑恩共用（由趙佑恩攜帶）"}, room:{no:"14", mate:"林伽羽"}, notes:"" },
+  { name:"蘇亮誠", instrument:"笛子", gender:"男", role:"", lug:{ status:"待確認", note:"若不能隨身，可能需與揚琴一起裝箱。" }, stand:{bring:true, kg:"1.1kg", note:"與楊政穎共用；能否再借楊倩姿一支待確認"}, room:{no:"4", mate:"陳彤霖"}, notes:"" },
+  { name:"楊政穎", instrument:"笙", gender:"男", role:"", lug:{ case:"長92 × 寬17 × 高15 cm ・ 5.9kg", boxing:"硬殼直接託運。", status:"託運" }, stand:{bring:true, kg:"1kg", note:"與蘇亮誠共用"}, room:{no:"5", mate:"趙佑恩"}, notes:"" },
+  { name:"林伽羽", instrument:"打擊", gender:"女", role:"", lug:{ status:"託運", boxing:"需跟小梁老師討論", note:"打擊樂器需先盤點清單。" }, stand:{ note:"與葉紘辰共用，兩人帶一支即可（1.2kg／1.14kg）" }, room:{no:"14", mate:"盧郁涵"}, notes:"" },
+];
+
+/* ---------- 行前須知 & 打包共同項 ---------- */
+const NOTES = [
+  "時差：葡萄牙比台灣<b>慢 7 小時</b>、西班牙<b>慢 6 小時</b>（夏令時間）。演出與晚餐都在深夜，盡快調整作息。",
+  "作息：四站晚上多在 <b>22:00 前後</b>戶外免費演出，西葡吃得晚（晚餐 21:00 後），隨身帶點小點心墊肚子。",
+  "住宿：全程住<b>學校／學生宿舍、主辦供餐</b>（蒙桑約一天四餐）。多人房＋深夜慶典 → <b>耳塞、眼罩必備</b>。",
+  "治安：大城市（馬德里等）<b>扒手多</b>，背包前背、財物分散、手機別放後口袋；<b>貴重物品隨身、夜間外出結伴</b>；護照與影本分開放。",
+  "證件：護照效期需離境時仍有 <b>6 個月以上</b>；台灣護照觀光免簽 90 天。備護照、機票影本各一份。",
+  "連線：建議備一張<b>歐洲 eSIM（西葡通用）</b>，手機熱點當主力，別賭宿舍 WiFi。",
+  "健康：個人常備藥帶足（歐洲藥局買藥多需處方）；準備腸胃藥、暈機藥。",
+];
+/* 建議程度：lv 1=必帶 2=建議 3=可選（顏色見 .lv1/.lv2/.lv3）。Sophy 之後會微調。
+   物件格式：{ n：品名， q：量詞/數量（放「：」後面）, g：限定性別"女", lv：建議程度 } */
+const PACK_TRIP = [
+  {n:"歐洲 eSIM（西葡通用）", q:"1 張", lv:1, d:"建議在台灣先買好、設定好再出發。宿舍 WiFi 常不穩，主要靠手機熱點分享；一張西葡通用的方案最省事。"},
+  {n:"「一轉多」延長線", q:"1 條", lv:2, d:"宿舍插座常常不夠用，一條台規延長線接在轉接頭後面，全房的人都能充。"},
+  {n:"耳塞、眼罩（深夜慶典＋多人房）", q:"各 1", lv:1, d:"南部藝術節常通宵狂歡、住宿又是多人房，這兩樣是能不能補到眠的關鍵，別省。"},
+  {n:"電解質（南段補水）", q:"適量", lv:2},
+  {n:"降溫濕巾（南段無冷氣）", q:"1–2 包", lv:2},
+  {n:"台灣意象小物（設攤／交流）", q:"幾樣", lv:2},
+  {n:"歐元現金＋海外可刷信用卡", q:"", lv:1},
+];
+/* 老師提供的物品參考表（分類），已標建議程度 */
+const PACK_CATEGORIES = [
+  { cat:"服裝", icon:"👕", items:[
+    {n:"換洗內衣褲", q:"2–3 套", lv:1},
+    {n:"平常排練用服", q:"2–3 件", lv:1},
+    {n:"團服、舞蹈大外套", q:"依規定", lv:1},
+    {n:"演出用小白襪", q:"1–2 雙", lv:1},
+    {n:"演出服", q:"", lv:1},
+    {n:"換洗衣服（逛街裝）", q:"2 套", lv:2},
+    {n:"禦寒衣服", q:"1–2 套", lv:2},
+  ]},
+  { cat:"鞋子", icon:"👟", items:[
+    {n:"搭配中式服裝的鞋", q:"", lv:1},
+    {n:"演出鞋", q:"", lv:1},
+    {n:"拖鞋（可穿去浴室洗澡）", q:"1 雙", lv:2},
+    {n:"涼鞋或布鞋（逛街穿）", q:"1 雙", lv:2},
+  ]},
+  { cat:"髮飾", icon:"🎀", items:[
+    {n:"黑色髮帶", q:"2–3 條", g:"女", lv:1},
+    {n:"髮夾", q:"1 大包", g:"女", lv:1},
+    {n:"黑色橡皮筋", q:"1 大包", g:"女", lv:1},
+    {n:"齒狀梳／扁梳", q:"", lv:2},
+    {n:"髮膠", q:"", lv:2},
+    {n:"演出用耳環（短版垂墜）", q:"1–2 副", g:"女", lv:2},
+    {n:"別針", q:"1 包", lv:2},
+    {n:"搭配中式服裝的髮飾", q:"", g:"女", lv:2},
+  ]},
+  { cat:"衛生用品", icon:"🧴", items:[
+    {n:"洗面乳", q:"", lv:1},
+    {n:"洗髮乳", q:"", lv:1},
+    {n:"沐浴乳或香皂", q:"", lv:1},
+    {n:"牙膏、牙刷", q:"", lv:1},
+    {n:"毛巾／浴巾", q:"", lv:1},
+    {n:"防曬油", q:"", lv:1},
+    {n:"化妝品", q:"", g:"女", lv:1, d:"演出需要女生淡妝、乾淨有精神。當地品牌與色號跟台灣不同，建議整組自備：粉底、蜜粉、海綿、口紅、眼影、眼線液、假睫毛、腮紅、棉花棒、化妝棉、化妝器具等。"},
+    {n:"生理用品（衛生棉等）", q:"自備足量，當地品牌規格不同", g:"女", lv:1},
+    {n:"洗衣精／衣皂／衣粉", q:"", lv:2},
+    {n:"保養品", q:"", lv:2},
+    {n:"卸妝品", q:"", lv:2},
+    {n:"衛生紙", q:"", lv:2},
+    {n:"敷面膜", q:"", lv:3},
+    {n:"香水／體香劑", q:"", lv:3},
+    {n:"牙線", q:"", lv:3},
+    {n:"洗碗精", q:"", lv:3},
+  ]},
+  { cat:"藥品", icon:"💊", items:[
+    {n:"個人藥品", q:"", lv:1, d:"歐洲藥局買藥多數需要醫師處方，常用藥務必自備：感冒藥、腸胃藥、止痛藥、隱形眼鏡藥水、暈車藥、透氣膠帶、OK 繃等。慢性病藥另附中英文藥名清單，過海關備查。"},
+  ]},
+  { cat:"其他", icon:"🧳", items:[
+    {n:"護照及影本 ＋ 與護照不同的 2 吋照片", q:"", lv:1},
+    {n:"手機充電線、充電器", q:"", lv:1},
+    {n:"變壓器 230V ＋ 三插頭", q:"", lv:1, d:"西葡是 230V、圓頭 C／F 型插座。多數手機／筆電充電器本身支援 100–240V(看標示)，只要帶轉接頭即可；真正不支援 230V 的電器（部分吹風機、電湯匙）才需要變壓器。"},
+    {n:"身分證影本（可掃描存手機）", q:"", lv:2},
+    {n:"個人眼鏡", q:"", lv:2},
+    {n:"太陽眼鏡", q:"", lv:2},
+    {n:"帽子", q:"", lv:2},
+    {n:"傘", q:"1 支", lv:2},
+    {n:"小電扇", q:"", lv:2},
+    {n:"頸枕", q:"", lv:2},
+    {n:"小腰包（防扒）", q:"", lv:2},
+    {n:"水壺／杯", q:"1 個", lv:2},
+    {n:"吹風機", q:"", lv:2},
+    {n:"衣架、夾子（掛戲服／個人衣物）", q:"7–8 枝", lv:2},
+    {n:"童軍繩／曬衣繩", q:"2 條", lv:2},
+    {n:"塑膠袋", q:"幾個", lv:3},
+    {n:"針線盒", q:"", lv:3},
+    {n:"筆記本／紙筆", q:"", lv:3},
+    {n:"膠水", q:"", lv:3},
+    {n:"指甲刀", q:"", lv:3},
+    {n:"書籍", q:"", lv:3},
+    {n:"食物（泡麵、零食）", q:"", lv:3},
+    {n:"碗筷", q:"", lv:3},
+    {n:"電湯匙", q:"", lv:3},
+    {n:"禮物", q:"", lv:3},
+    {n:"名片", q:"", lv:3},
+  ]},
+];
+
+/* ---------- 演出注意事項 ---------- */
+/* 曲目 */
+const SETLIST = [
+  {label:"舞蹈曲目", text:"花鼓舞（節慶）、羽扇翩翩、燈籠、清揚雲飛、慶典風華、跳鼓、龍鳳獅。"},
+  {label:"串場曲目", text:"關子嶺之戀、四月望雨、桃花過渡、小城故事。"},
+  {label:"獨奏曲", text:"可各自準備一些<b>獨奏曲</b>，備樂團單獨演出、或與其他國家樂手交流時使用。"},
+];
+/* 妝髮（依性別）＋服裝 */
+const MAKEUP = {
+  "女":"<b>妝容</b>：淡妝、乾淨有精神。<br><b>髮型</b>：全部往後盤，或半頭；加髮飾髮簪（<b>髮簪舞團會幫忙準備</b>）。<br><b>耳環</b>：小巧垂墜式點綴。",
+  "男":"<b>髮型</b>：頭髮梳乾淨、整齊即可。",
+};
+const COSTUME = "共<b>兩套戲服</b>，依當天狀況（場次、天氣）搭配。";
+
+/* ---------- 集合・航班・緊急聯絡 ---------- */
+const PRACTICAL = [
+  "集合：【待補：桃園機場集合時間與地點】—— 請務必準時，遲到會影響全團報到。",
+  "航空公司：全程<b>經杜拜轉機</b>，路線應為<b>阿聯酋航空 Emirates</b>（實際以機票為準）。<b>行李限重每人 15kg</b>（實際以最終公告為準）；班機號碼另行公布。",
+  "緊急聯絡：領隊【待補：姓名／電話】；台灣駐西班牙代表處緊急電話 <b>+34 639 384 883</b>；駐葡萄牙緊急電話 <b>+351 962 735 481</b>。",
+];
+
+/* ---------- 每日行程：去程 / 各站 / 馬德里 / 返程 ---------- */
+const TRAINING = { title:"行前集訓 · 台南", route:"台南集訓 · 出國前公演", dates:"7/20–7/25", icon:"🎼",
+  days:[
+    {d:"7/20 一", tag:"過譜", place:"仁德區圖書館 3F", note:"12:30 全樂團先一起過譜（這兩天排練後調整的版本）;13:30 接著跟舞團排練。<b>記得先自己吃午餐。</b>"},
+    {d:"7/22 三", tag:"公演", place:"一甲忠義宮", note:"<b>出國前公演</b> 19:00｜仁德區忠義路 260 號。<br><b>舞序</b>：① 節慶　② 羽扇　③ 清揚雲飛　④ 上元燈樂　⑤ 慶典風華 → 跳鼓 → 龍鳳獅"},
+    {d:"7/25 六", tag:"打包", place:"樂器、道具", note:"樂器、道具打包裝箱。"},
+  ]};
+const TRAVEL_OUT = { title:"去程", route:"台南 → 桃園機場 → 杜拜 → 馬德里 → 蒙桑", dates:"7/30–7/31", icon:"✈",
+  days:[
+    {d:"7/30 四", tag:"集合", place:"台南 → 桃園機場", note:"<b>全團在台南集合、一起出發</b>去桃園機場，<b>不要各自前往</b>；集合時間地點以老師最終公告為準。"},
+    {d:"7/30 四", tag:"出發", place:"台北 → 杜拜", note:"23:50–04:35｜經杜拜轉機。"},
+    {d:"7/31 五", tag:"抵達", place:"杜拜 → 馬德里", note:"07:40–13:30｜抵馬德里機場後<b>拉車約 6 小時</b>到蒙桑。"},
+  ]};
+const MADRID = { title:"馬德里 · 自由行", dates:"8/26–8/28",
+  note:"8/26 阿爾梅里亞早餐後<b>拉車約 6 小時</b>到馬德里；8/26–8/28 自由活動，團體不安排。" };
+const TRAVEL_BACK = { title:"返程", route:"馬德里 → 杜拜 → 台北", dates:"8/28–8/29", icon:"✈",
+  days:[
+    {d:"8/28 五", tag:"啟程", place:"馬德里 → 杜拜", note:"15:25–00:35"},
+    {d:"8/29 六", tag:"回台", place:"杜拜 → 台北", note:"03:45–16:15｜抵台北後解散，<b>解散地點待定</b>。"},
+  ]};
+
+/* ---------- 巡演四站 ---------- */
+const STATIONS = [
+  { n:"①", city:"蒙桑 Monção", region:"葡萄牙北部・上米尼奧", dates:"8/1–8/9", hot:false,
+    festival:"第41屆 Folk o Mundo a Dançar",
+    perf:"每晚多為 8 分；8/4 加長 20 分、8/9 閉幕 6 分。",
+    meals:"每日固定：早餐 08:00｜午餐 12:30｜晚餐 18:30（8/6 遊行日、8/9 閉幕日不同，見下）。",
+    daily:[
+      {d:"8/1 六", tag:"開幕", city:"Valença",       show:"8 分", note:"15:30 Sound Check｜19:30 上車｜22:00 開幕 Gala"},
+      {d:"8/2 日", tag:"自由", city:"P. Mouro",      show:"—",    note:"17:00 上車｜18:30 聯誼｜22:00 Gala ALIANÇA"},
+      {d:"8/3 一", tag:"",     city:"P. Coura",      show:"8 分", note:"19:30 上車｜22:00 演出"},
+      {d:"8/4 二", tag:"加長", city:"V.N. Cerveira", show:"20 分",note:"與厄瓜多／肯亞／塞爾維亞同場｜19:30 上車｜22:00 演出"},
+      {d:"8/5 三", tag:"",     city:"Arcos",         show:"8 分", note:"19:30 上車｜22:00 演出"},
+      {d:"8/6 四", tag:"遊行", city:"Ponte de Lima", show:"8 分", note:"09:00 著裝出發｜10:00 遊行｜11:30 接待｜19:00 上車"},
+      {d:"8/7 五", tag:"",     city:"Melgaço",       show:"8 分", note:"19:30 上車｜22:00 演出"},
+      {d:"8/8 六", tag:"",     city:"P. Barca",      show:"8 分", note:"19:30 上車｜22:00 演出"},
+      {d:"8/9 日", tag:"閉幕", city:"Monção",        show:"6 分", note:"20:00 出發｜22:00 閉幕 Gala"},
+    ],
+    lodging:"當地學校、主辦供餐（約一天四餐）", tel:"+351 917 348 324",
+    addr:"Escola EB 2.3 de Monção, Veiga Velha s/nº, 4950 Monção, Portugal",
+    climate:"白天 25–30°C 舒適，入夜偏涼、偶有降雨。",
+    food:"必試 Alvarinho 白酒、綠酒 Vinho Verde；米尼奧家常菜（鱈魚乾 bacalhau、玉米麵包 broa）。",
+    free:"城牆、河岸步道、酒莊；演出常跨對岸西班牙小鎮。當作進入巡演節奏的暖身。",
+    extra:"米尼奧河畔邊境小鎮、白酒之都。2026 確定名單：台灣、亞美尼亞、玻利維亞、巴西、厄瓜多、美國、墨西哥、肯亞、塞爾維亞、葡萄牙，共 10 國。" },
+  { n:"②", city:"奧倫塞 Ourense", region:"西班牙・加利西亞", dates:"8/10–8/19", hot:false,
+    festival:"Xornadas de Folclore",
+    perf:"標準演出 24 分（分兩段各 12 分）/ 其他場約 15 分。夜間戶外（20:30／22:30／23:00），常每晚兩場。",
+    lodging:"學生宿舍・四人房附衛浴，有運動場與休閒區", tel:"+34 988 317 880／+34 628 025 081",
+    addr:"Centro Residencial Docente (Universidade Laboral), Avda. Universidade s/nº, A Cuña – Mariñamansa, Ourense",
+    climate:"內陸盆地，白天可達三十幾度、入夜降溫。",
+    food:"加利西亞章魚 pulpo á feira、肉餡餅 empanada、加利西亞濃湯 caldo galego，配 Ribeiro 酒；海鮮很強。",
+    free:"第一順位泡溫泉（As Burgas 湧泉、河岸 Outariz／A Chavasqueira 露天池）；行有餘力去 Ribeira Sacra。",
+    extra:"「加利西亞的雅典」，唯一不靠海的內陸省。待最久（10 天），當主場兼休整站。2026 名單待官方公布。" },
+  { n:"③", city:"謝薩 Cieza", region:"西班牙・莫西亞", dates:"8/20–8/22", hot:true,
+    festival:"第36屆 Festival del Segura",
+    perf:"完整演出 20–25 分。往年舞台在<b>室內</b> Teatro Capitol，對體感和樂器都是好消息。",
+    lodging:"IES Los Albares（中學）", tel:"",
+    addr:"IES Los Albares, Vereda de Morcillo s/n, 30530 Cieza, Murcia, España",
+    climate:"⚠️ 全西班牙最熱最乾之一，白天常 <b>38–42°C</b> 且非常乾燥；學校多半沒冷氣。",
+    food:"莫西亞是西班牙「菜籃子」:zarangollo（櫛瓜炒蛋）、michirones（燉蠶豆）、各式米飯；甜點 paparajotes；鄰近 Jumilla 酒區。",
+    free:"只有約 3 天又逢高溫，白天戶外有限；招牌景點 Cañón de Almadenes 峽谷。",
+    extra:"塞古拉河上游果園之鄉（水蜜桃聞名），鎮民參與熱情。2026 名單待公布。" },
+  { n:"④", city:"阿爾梅里亞 Almería", region:"西班牙・安達魯西亞海岸", dates:"8/23–8/26", hot:true,
+    festival:"第41屆 Festival de Folclore",
+    perf:"完整演出 20–25 分（憲法廣場 Plaza de la Constitución, 22:00 起）。8/26 早餐後才離開。",
+    lodging:"學生宿舍（實際 8/26 早餐後才離開，多住一晚）", tel:"",
+    addr:"Students Residence, Almería",
+    climate:"一樣熱、陽光極強，但靠海有海風、濕度略高，體感沒內陸悶，可下海消暑。",
+    food:"點飲料常免費附一份 tapa；海鮮新鮮（蝦很讚）、摩爾風味料理；Costa de Almería 產酒。",
+    free:"下海游泳回血、登 Alcazaba 城堡；遠程 Cabo de Gata 火山海岸、Tabernas 沙漠片場（避正午）。",
+    extra:"摩爾色彩濃厚的地中海港市。嵌在全城最大的「海洋聖母節 Feria de Almería」（8/22–8/30）裡，整座城通常會<b>通宵狂歡</b>。最後一站，當收尾＋犒賞。2026 名單待公布。" },
+];
+
+/* ---------- 客製提醒（依樂器 / 性別 / 角色） ---------- */
+const INSTRUMENT_TYPE = {
+  "琵琶":"plucked","古箏":"plucked","中阮":"plucked","大阮":"plucked","柳琴":"plucked","三弦":"plucked","阮":"plucked",
+  "揚琴":"hammered",
+  "二胡":"bowed","高胡":"bowed","中胡":"bowed","板胡":"bowed","革胡":"bowed","低音提琴":"bowed",
+  "笛":"wind","笛子":"wind","梆笛":"wind","曲笛":"wind","簫":"wind","笙":"wind","嗩吶":"wind","管":"wind",
+  "打擊":"percussion","定音鼓":"percussion","鑼":"percussion","鼓":"percussion",
+};
+const TIPS_INSTRUMENT = {
+  plucked:  ["彈撥樂器面板怕乾裂，南段 38–42°C 乾熱最傷 —— 琴盒放<b>雙向濕度調節包</b>，別直曬或靠冷暖氣出風口。","多帶<b>備弦</b>與義甲／指套；到當地先讓琴適應溫濕度再上弦調音。"],
+  hammered: ["揚琴怕乾裂與走音 —— 琴盒放濕度調節包，到當地預留<b>充分調音時間</b>；多帶備用琴竹（琴槌）與扳手。"],
+  bowed:    ["二胡等拉弦樂器體積小、建議<b>隨身上機</b>，別託運。","乾燥會影響蛇皮與音準 —— 備弦、松香、濕度小物；到當地先適應再調音。"],
+  wind:     ["<b>笛膜／簧片多備幾份</b>（乾燥地區更容易裂）；帶清潔通條與保養油。","溫差大時吹奏前先讓樂器回溫，避免冷凝與音準漂移。"],
+  percussion:["大型打擊樂器<b>多半由主辦提供</b> —— 出發前跟團務核對<b>器材清單</b>，缺什麼要補帶。","個人小物（鼓棒、mallet、專用配件）自備，通常不外借。"],
+  general:  ["跟團務確認你的樂器要<b>託運、上機、還是當地租借</b>，以及南段乾熱的保養方式。"],
+};
+const TIPS_GENDER = {
+  "女":["貴重物品隨身、夜間外出結伴。","生理用品建議<b>自備足量</b>（當地品牌規格不同）。"],
+  "男":["貴重物品隨身、夜間外出結伴。"],
+};
+const TIPS_ROLE = {
+  "獨奏":["你的譜<b>多帶一份備份</b>（含電子檔）；提早到場彩排、與指揮和主辦技術端對接。"],
+  "協奏":["你的譜多帶一份備份；提早到場彩排、與指揮確認銜接。"],
+  "聲部長":["負責清點聲部人員與譜務；出發前彙整你聲部的器材與需求給團務。"],
+};
+
+/* ========================= 程式邏輯（一般不用動） ========================= */
+const $ = s => document.querySelector(s);
+const fmt = t => t.replace(/【待補[^】]*】/g, m => `<span class="todo">${m}</span>`);
+const tel = t => t.replace(/[^+\d]/g,'');
+
+function typesOf(inst){
+  const found = [];
+  for(const k in INSTRUMENT_TYPE){ if(inst.indexOf(k) >= 0){ const t = INSTRUMENT_TYPE[k]; if(found.indexOf(t) < 0) found.push(t); } }
+  return found.length ? found : ["general"];
+}
+function personalTips(m){
+  const out = [], seen = new Set();
+  const push = (label, arr) => (arr||[]).forEach(t => { const k = label+"|"+t; if(!seen.has(k)){ seen.add(k); out.push({label, text:t}); } });
+  if(m.gender) push(m.gender+"生", TIPS_GENDER[m.gender]);
+  if(m.role && TIPS_ROLE[m.role]) push(m.role, TIPS_ROLE[m.role]);
+  if(m.notes) out.push({label:"提醒你", text:m.notes});
+  return out;
+}
+function lugCard(m){
+  const L = m.lug || {}, S = m.stand;
+  if(!L.inst && !L.case && !L.boxing && !L.status && !L.note && !S) return "";
+  const row = (k,v) => `<div class="kv"><span class="k">${k}</span><span class="v">${v}</span></div>`;
+  const rows = [];
+  if(L.inst) rows.push(row("樂器本體", L.inst));
+  if(L.case) rows.push(row("裝盒", L.case));
+  if(L.boxing) rows.push(row("裝箱方式", L.boxing));
+  if(L.status){
+    const v = L.status==="託運" ? `<span class="status-pill ck">託運</span>`
+            : L.status==="上機" ? `<span class="status-pill cabin">隨身上機</span>`
+            : L.status==="待確認" ? `<span class="status-pill tbd">託運/上機待確認</span>`
+            : L.status;
+    rows.push(row("出關方式", v));
+  }
+  if(S){
+    const txt = S.bring ? `自帶 1 支 · ${S.kg||""}${S.note?`（${S.note}）`:""}` : (S.note||"");
+    rows.push(row("譜架", txt));
+  }
+  if(L.note) rows.push(row("備註", L.note));
+  return `<div class="lcard"><div class="lcard-h"><span class="ci">🎻</span><span class="cn">樂器相關行李</span></div>${rows.join("")}</div>`;
+}
+
+/* ---- 分頁 ---- */
+const TABS = [
+  {ic:"📅", label:"每日行程"},
+  {ic:"🧳", label:"行李"},
+  {ic:"📋", label:"演出・須知"},
+];
+let activeTab = 0;
+
+/* ---- 每日行程 ---- */
+function dayRow(x){
+  const place = x.city || x.place || "";
+  const show = x.show ? `<span class="dshow">演出 ${x.show}</span>` : "";
+  return `<div class="day"><div class="day-h"><span class="dd">${x.d}</span>${x.tag?`<span class="dtag">${x.tag}</span>`:''}<span class="dcity">${place}</span>${show}</div>${x.note?`<div class="dnote">${fmt(x.note)}</div>`:''}</div>`;
+}
+function segTravel(t){
+  return `<details class="seg travel"><summary class="seg-head"><span class="seg-n">${t.icon}</span>
+    <div class="seg-mid"><div class="seg-city">${t.title}</div><div class="seg-meta">${t.route}</div></div>
+    <span class="seg-dates">${t.dates}</span><span class="seg-caret">▾</span></summary>
+    <div class="seg-days">${t.days.map(dayRow).join("")}</div></details>`;
+}
+function segFree(f, m){
+  let roomLine = "";
+  if(m && m.room) roomLine = `<div class="room-box">🛏️ 你的馬德里房間：<b>${m.room.no} 號房</b> · 室友 ${m.room.mate}</div>`;
+  else if(!m) roomLine = `<div class="dnote" style="margin-top:8px">各人房號請點自己的名字查看。</div>`;
+  return `<details class="seg travel"><summary class="seg-head"><span class="seg-n">✦</span>
+    <div class="seg-mid"><div class="seg-city">${f.title}</div></div>
+    <span class="seg-dates">${f.dates}</span><span class="seg-caret">▾</span></summary>
+    <div class="dnote" style="margin-top:2px">${fmt(f.note)}</div>${roomLine}</details>`;
+}
+function segStation(s){
+  const days = s.daily ? s.daily.map(dayRow).join("")
+    : `<div class="day"><div class="dnote" style="margin-top:0">${fmt(s.perf)}<br>每日場次【待補：待主辦公布】</div></div>`;
+  return `<details class="seg ${s.hot?'hot':''}"><summary class="seg-head"><span class="seg-n">${s.n}</span>
+    <div class="seg-mid"><div class="seg-city">${s.city}${s.hot?' <span class="heat">酷熱</span>':''}</div>
+      <div class="seg-meta">${s.region} · ${s.festival}</div></div>
+    <span class="seg-dates">${s.dates}</span><span class="seg-caret">▾</span></summary>
+    ${s.meals?`<div class="meals">${s.meals}</div>`:''}
+    <div class="seg-days">${days}</div>
+    <details class="seg-more"><summary>＋ 城市 · 美食 · 住宿</summary>
+      <div class="field"><span class="flab">住宿</span><span class="ftext">${s.lodging}<div class="addr">📍 ${s.addr}${s.tel?`<br>📞 <a href="tel:${tel(s.tel)}">${s.tel}</a>`:''}</div></span></div>
+      <div class="field"><span class="flab">氣候</span><span class="ftext">${fmt(s.climate)}</span></div>
+      <div class="field"><span class="flab">當地美食</span><span class="ftext">${s.food}</span></div>
+      <div class="field"><span class="flab">熱門景點</span><span class="ftext">${s.free}</span></div>
+      <div class="field"><span class="flab">關於這站</span><span class="ftext">${s.extra}</span></div>
+    </details></details>`;
+}
+function panelTimeline(m){
+  return `<div class="panel"><div class="panel-lead">從行前集訓到返台的每一天。點各段標題可展開／收合。</div>`
+    + segTravel(TRAINING) + segTravel(TRAVEL_OUT) + STATIONS.map(segStation).join("") + segFree(MADRID, m) + segTravel(TRAVEL_BACK) + `</div>`;
+}
+
+/* ---- 行李 checklist ---- */
+const LS = "iberia-pack:";
+const chkKey = (m,i) => LS + (m?m.name:"共同") + ":" + i;
+const getChk = k => { try{ return localStorage.getItem(k)==="1"; }catch(e){ return false; } };
+const setChk = (k,v) => { try{ localStorage.setItem(k, v?"1":"0"); }catch(e){} };
+
+const LV = {1:{t:"必帶",c:"lv1"}, 2:{t:"建議",c:"lv2"}, 3:{t:"可選",c:"lv3"}};
+function panelPacking(m){
+  let i = 0;
+  const packItem = (o) => {
+    const lv = LV[o.lv||2];
+    const gtag = (o.g && !m) ? `<span class="fy-tag">${o.g}</span>` : "";
+    const qty = o.q ? `<span class="qty">：${o.q}</span>` : "";
+    const info = o.d ? `<button type="button" class="info" aria-expanded="false">說明</button>` : "";
+    const detail = o.d ? `<div class="detail" hidden>${fmt(o.d)}</div>` : "";
+    return `<div class="pitem"><div class="pitem-row"><label class="check" data-key="${chkKey(m,i++)}"><input type="checkbox"><span class="ctext"><span class="lv-dot ${lv.c}" title="${lv.t}"></span>${gtag}${o.n}${qty}</span></label>${info}</div>${detail}</div>`;
+  };
+  const cat = (icon, name, items, open) =>
+    `<details class="lcard"${open?" open":""}><summary class="lcard-h"><span class="ci">${icon}</span><span class="cn">${name}</span><span class="cc">${items.length} 項</span><span class="caret">▾</span></summary><div class="cat-body">${items.map(packItem).join("")}</div></details>`;
+  const legend = `<div class="legend"><span class="lg"><span class="dot lv1"></span><b>必帶</b></span><span class="lg"><span class="dot lv2"></span><b>建議</b></span><span class="lg"><span class="dot lv3"></span><b>可選</b></span></div>`;
+  const notice = `<div class="premise">每人託運限重 <span class="kg">15kg</span> <b>（實際以最終公告為準）</b>。除了超重先砍「可選」，也建議<b>兩人合用一個行李箱</b>——一個空箱本身就佔 3–4kg，共用等於省下一個空箱的重量，能多留給真正要帶的東西。</div>`;
+  let html = `<div class="panel"><div class="panel-lead">${m?"打勾記錄會存在你這台手機／電腦上。老師清單較通用，數量自行斟酌。":"選你的名字，清單會多出你樂器/性別專屬項目；標「女」的只有女生看到。"}</div>`;
+  if(m){ const lc = lugCard(m); if(lc) html += lc; }
+  html += `<div class="sublabel">個人行李</div>${notice}${legend}`;
+  html += cat("✦", "西葡特別提醒", PACK_TRIP, true);
+  PACK_CATEGORIES.forEach(c => {
+    const items = c.items.filter(o => !o.g || !m || m.gender===o.g);
+    if(items.length) html += cat(c.icon, c.cat, items, false);
+  });
+  return html + `</div>`;
+}
+
+/* ---- 演出・須知（合併）---- */
+function panelInfo(m){
+  const field = (l,t) => `<div class="field"><span class="flab">${l}</span><span class="ftext">${fmt(t)}</span></div>`;
+  const card = (icon,name,body) => `<div class="lcard"><div class="lcard-h"><span class="ci">${icon}</span><span class="cn">${name}</span></div>${body}</div>`;
+  const g = m ? m.gender : "";
+  const makeup = g ? MAKEUP[g] : (MAKEUP["女"] + "<br><span style='color:var(--ink-soft)'>（男生：頭髮梳乾淨、整齊即可）</span>");
+  const mkLabel = g ? `妝髮（${g}生）` : "妝髮";
+  return `<div class="panel">`
+    + card("🎵","曲目", SETLIST.map(f=>field(f.label,f.text)).join(""))
+    + card("💄","妝髮・服裝", field(mkLabel, makeup) + field("服裝", COSTUME))
+    + card("📋","行前須知", `<ul class="items">${bullets(NOTES)}</ul>`)
+    + card("🧭","集合・航班・緊急聯絡", `<ul class="items">${bullets(PRACTICAL)}</ul>`)
+    + `</div>`;
+}
+
+/* ---- 條列小工具 ---- */
+function bullets(arr){ return arr.map(t=>`<li><span class="bullet">◆</span><span class="item-text">${fmt(t)}</span></li>`).join(""); }
+
+/* ---- 組裝 ---- */
+function idCard(m){
+  if(!m) return `<div class="id-card"><div class="hi">共同版</div><div class="who">全團適用</div>
+    <div class="chips"><span class="chip">選名字看你的專屬版本</span></div></div>`;
+  const g = m.gender?`<span class="chip">👤 ${m.gender}生</span>`:"";
+  const r = (m.role && m.role!=="團員")?`<span class="chip">⭐ ${m.role}</span>`:"";
+  return `<div class="id-card"><div class="hi">你的專屬手冊</div><div class="who">${m.name}</div>
+    <div class="chips"><span class="chip">🎵 ${m.instrument}</span>${g}${r}</div></div>`;
+}
+function render(m){
+  const d = $("#dossier");
+  const panels = [panelTimeline(m), panelPacking(m), panelInfo(m)];
+  d.innerHTML = idCard(m)
+    + `<div class="tabs">${TABS.map((t,i)=>`<button class="tab-btn${i===activeTab?" active":""}" data-i="${i}"><span class="ic">${t.ic}</span>${t.label}</button>`).join("")}</div>`
+    + panels.map((c,i)=>`<div class="tab-panel" data-i="${i}" style="display:${i===activeTab?"block":"none"}">${c}</div>`).join("");
+
+  d.querySelectorAll(".tab-btn").forEach(b => b.addEventListener("click", () => {
+    activeTab = +b.dataset.i;
+    d.querySelectorAll(".tab-btn").forEach(x => x.classList.toggle("active", +x.dataset.i===activeTab));
+    d.querySelectorAll(".tab-panel").forEach(p => p.style.display = (+p.dataset.i===activeTab)?"block":"none");
+    const tabs = d.querySelector(".tabs"); if(tabs) tabs.scrollIntoView({behavior:"smooth", block:"start"});
+  }));
+  d.querySelectorAll(".check").forEach(l => {
+    const inp = l.querySelector("input"), key = l.dataset.key;
+    inp.checked = getChk(key); l.classList.toggle("done", inp.checked);
+    inp.addEventListener("change", () => { setChk(key, inp.checked); l.classList.toggle("done", inp.checked); });
+  });
+  d.querySelectorAll(".info").forEach(btn => btn.addEventListener("click", () => {
+    const det = btn.closest(".pitem").querySelector(".detail");
+    if(!det) return;
+    const open = det.hasAttribute("hidden");
+    if(open){ det.removeAttribute("hidden"); btn.textContent = "收起"; btn.setAttribute("aria-expanded","true"); }
+    else { det.setAttribute("hidden",""); btn.textContent = "說明"; btn.setAttribute("aria-expanded","false"); }
+  }));
+  d.scrollIntoView({behavior:"smooth", block:"start"});
+}
+
+function collapsePicker(m){
+  const cur = $("#pickerCurrent");
+  cur.innerHTML = `<span class="cur-name">🎵 ${m.name} <span class="cur-inst">· ${m.instrument}</span></span><span class="cur-act">換人 ▾</span>`;
+  cur.hidden = false;
+  $("#picker").classList.add("collapsed");
+}
+function buildNames(){
+  const grid = $("#nameGrid");
+  grid.innerHTML = MEMBERS.map(m => `<button class="name-btn" data-name="${m.name}">${m.name}<span class="inst">${m.instrument}</span></button>`).join("");
+  grid.querySelectorAll(".name-btn").forEach(b => b.addEventListener("click", () => {
+    grid.querySelectorAll(".name-btn").forEach(x => x.classList.remove("active"));
+    b.classList.add("active");
+    const m = MEMBERS.find(x => x.name === b.dataset.name);
+    render(m);
+    collapsePicker(m);
+  }));
+}
+buildNames();
+$("#pickerCurrent").addEventListener("click", () => {
+  $("#picker").classList.remove("collapsed");
+  $("#picker").scrollIntoView({behavior:"smooth", block:"start"});
+});
+</script>
