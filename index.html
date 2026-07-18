@@ -37,6 +37,8 @@
   .trip-meta{display:flex;flex-wrap:wrap;gap:7px 8px;justify-content:center;margin-top:22px;}
   .trip-meta span{font-family:var(--font-util);font-size:12px;color:var(--ink-soft);
     background:var(--card);border:1px solid var(--line);padding:6px 11px;border-radius:999px;}
+  .hero-ver{font-family:var(--font-util);font-size:11px;letter-spacing:.06em;color:var(--ink-soft);margin:14px 0 0;}
+  .hero-ver span{color:var(--azul);font-weight:700;}
 
   /* ---------- 選人 ---------- */
   .picker{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
@@ -255,6 +257,7 @@
   .empty{text-align:center;color:var(--ink-soft);padding:24px 16px;font-size:15px;}
   footer.foot{text-align:center;color:var(--ink-soft);font-size:12.5px;margin-top:36px;line-height:1.8;}
   footer.foot code{font-family:var(--font-util);background:var(--azul-wash);color:var(--azul);padding:1px 6px;border-radius:5px;font-size:11.5px;}
+  footer.foot .ver-line{font-size:13px;color:var(--ink);font-weight:600;}
 
   @media (max-width:430px){
     .name-grid{grid-template-columns:1fr 1fr;}
@@ -271,6 +274,7 @@
       <div class="trip-meta">
         <span>7/30 出發</span><span>8/29 返台</span><span>31 天 · 4 站</span>
       </div>
+      <p class="hero-ver">最後更新 <span data-date></span> · 版本 <span data-ver></span></p>
     </div>
   </header>
 
@@ -285,6 +289,7 @@
     <div id="dossier"></div>
 
     <footer class="foot">
+      <span class="ver-line">版本 <code data-ver></code> · 最後更新 <code data-date></code></span><br>
       這是一份會更新的手冊。三個西班牙藝術節的 2026 參演名單通常七月底才公布，屆時以官方為準。<br>
       手冊製作 · 葉祖昀｜藝姿舞集 30 週年 · 2026 西葡藝術節巡演
     </footer>
@@ -295,6 +300,10 @@
 /* =========================================================================
    ★★★ DATA — 要改的東西都在這一區 ★★★
    ========================================================================= */
+
+/* ---------- 版本與更新日期（每次改內容就更新這兩行；開頭與結尾會自動同步） ---------- */
+const VERSION = "v1.0";
+const UPDATED = "2026.07.18";
 
 /* ---------- 團員名單 ----------
    gender：女 / 男　role：留空＝團員　lug：樂器行李
@@ -781,4 +790,7 @@ $("#pickerCurrent").addEventListener("click", () => {
   $("#picker").classList.remove("collapsed");
   $("#picker").scrollIntoView({behavior:"smooth", block:"start"});
 });
+/* 版本與更新日期：從常數同步到開頭 hero 與結尾 footer */
+document.querySelectorAll("[data-ver]").forEach(e => e.textContent = VERSION);
+document.querySelectorAll("[data-date]").forEach(e => e.textContent = UPDATED);
 </script>
