@@ -300,15 +300,15 @@
    gender：女 / 男　role：留空＝團員　lug：樂器行李
    room：馬德里 8/26–8/28 房號與室友（no 房號、mate 室友）　notes：個人專屬提醒 */
 const MEMBERS = [
-  { name:"楊倩姿", instrument:"揚琴", gender:"女", role:"", lug:{ status:"待確認" }, stand:{ note:"待確認（楊政穎或許可借一支）" }, room:{no:"6", mate:"陳妡萌（＋1 小孩）"}, notes:"" },
+  { name:"楊倩姿", instrument:"揚琴", gender:"女", role:"", lug:{ status:"待確認" }, stand:{ note:"是否能跟蘇亮誠借一支譜架" }, room:{no:"6", mate:"陳妡萌（＋1 小孩）"}, notes:"" },
   { name:"葉祖昀", instrument:"琵琶", gender:"女", role:"", lug:{ case:"長109 × 寬37 × 高20 cm ・ 5.7kg", boxing:"裝在一大紙箱，中間塞舞衣戲服等緩衝；琴盒內塞泡棉保護琴頭。" }, stand:{bring:false, note:"與林博欣共用一支（由林博欣攜帶）"}, room:{no:"13", mate:"林博欣"}, notes:"" },
   { name:"林博欣", instrument:"琵琶", gender:"女", role:"", lug:{ case:"長108 × 寬36 × 高19 cm ・ 5.2kg", boxing:"裝在一大紙箱，中間塞舞衣戲服等緩衝；琴盒內塞泡棉保護琴頭。" }, stand:{bring:true, kg:"1.06kg", note:"與葉祖昀共用"}, room:{no:"13", mate:"葉祖昀"}, notes:"" },
   { name:"程郁茹", instrument:"中阮", gender:"女", role:"", lug:{ case:"長110 × 寬46 × 高15 cm ・ 4kg", boxing:"裝在一大紙箱，中間塞舞衣戲服等緩衝；琴盒內塞泡棉保護琴頭。", status:"託運" }, stand:{bring:true, kg:"1.2kg"}, room:{no:"15", mate:"葉紘辰"}, notes:"" },
   { name:"葉紘辰", instrument:"打擊／嗩吶", gender:"女", role:"", lug:{ status:"託運", boxing:"需跟小梁老師討論", note:"打擊樂器需先盤點清單；嗩吶託運需告知小梁老師。" }, stand:{ note:"與林伽羽共用，兩人帶一支即可（1.2kg／1.14kg）" }, room:{no:"15", mate:"程郁茹"}, notes:"" },
   { name:"趙佑恩", instrument:"二胡", gender:"男", role:"", lug:{ inst:"長81 × 寬13 cm ・ 0.95kg", case:"長88 × 寬18 × 高7 cm ・ 3.6kg", status:"可能需硬殼直接託運（待確認）" }, stand:{bring:true, kg:"1.1kg", note:"與盧郁涵共用"}, room:{no:"5", mate:"楊政穎"}, notes:"" },
   { name:"盧郁涵", instrument:"二胡", gender:"女", role:"", lug:{ inst:"長81 × 寬13 cm", case:"長90 × 寬17 × 高7 cm ・ 2.95kg", status:"可能需硬殼直接託運（待確認）" }, stand:{bring:false, note:"與趙佑恩共用（由趙佑恩攜帶）"}, room:{no:"14", mate:"林伽羽"}, notes:"" },
-  { name:"蘇亮誠", instrument:"笛子", gender:"男", role:"", lug:{ status:"待確認", note:"若不能隨身，可能需與揚琴一起裝箱。" }, stand:{bring:false, note:"沒自帶，與楊政穎共用一支（由楊政穎攜帶）"}, room:{no:"4", mate:"陳彤霖"}, notes:"" },
-  { name:"楊政穎", instrument:"笙", gender:"男", role:"", lug:{ case:"長92 × 寬17 × 高15 cm ・ 5.9kg", boxing:"硬殼直接託運。", status:"託運" }, stand:{bring:true, kg:"1kg", note:"與蘇亮誠共用；能否再借楊倩姿一支待確認"}, room:{no:"5", mate:"趙佑恩"}, notes:"" },
+  { name:"蘇亮誠", instrument:"笛子", gender:"男", role:"", lug:{ status:"待確認", note:"若不能隨身，可能需與揚琴一起裝箱。" }, stand:{ note:"與楊政穎共用一支（譜架能否帶一支借楊倩姿）" }, room:{no:"4", mate:"陳彤霖"}, notes:"" },
+  { name:"楊政穎", instrument:"笙", gender:"男", role:"", lug:{ case:"長92 × 寬17 × 高15 cm ・ 5.9kg", boxing:"硬殼直接託運。", status:"託運" }, stand:{bring:true, kg:"1kg", note:"與蘇亮誠共用"}, room:{no:"5", mate:"趙佑恩"}, notes:"" },
   { name:"林伽羽", instrument:"打擊", gender:"女", role:"", lug:{ status:"託運", boxing:"需跟小梁老師討論", note:"打擊樂器需先盤點清單。" }, stand:{ note:"與葉紘辰共用，兩人帶一支即可（1.2kg／1.14kg）" }, room:{no:"14", mate:"盧郁涵"}, notes:"" },
 ];
 
