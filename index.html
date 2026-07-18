@@ -111,7 +111,8 @@
   details.lcard > summary{list-style:none;cursor:pointer;}
   details.lcard > summary::-webkit-details-marker{display:none;}
   .cat-body{padding:0;}
-  .sublabel{font-size:13px;font-weight:700;color:var(--ink-soft);margin:22px 2px 8px;}
+  .sublabel{font-size:16px;font-weight:800;color:var(--ink);margin:30px 2px 14px;
+    padding-bottom:9px;border-bottom:2px solid var(--line);}
   .kv{display:flex;gap:10px;padding:9px 0;border-top:1px solid var(--line);font-size:14px;flex-wrap:wrap;}
   .kv .k{color:var(--ink-soft);flex:none;min-width:72px;}
   .kv .v{font-variant-numeric:tabular-nums;flex:1;min-width:0;}
@@ -170,6 +171,50 @@
     background:none;border:none;padding:0 2px;margin:0 0 4px;}
   .legend .lg{display:inline-flex;align-items:center;gap:6px;} .legend b{color:var(--ink);font-weight:700;}
   .legend .dot{display:inline-block;width:9px;height:9px;border-radius:50%;}
+  /* 登機隨身行李 */
+  .co-body{padding:4px 16px 14px;}
+  /* 託運行李：限重大數字 */
+  .limit{display:flex;align-items:center;gap:16px;padding:14px 16px;margin:8px 0 2px;
+    background:var(--azul-wash);border:1px solid var(--line);border-radius:12px;}
+  .limit-num{font-family:var(--font-body);font-weight:800;font-size:42px;line-height:.95;
+    color:var(--azul-deep);flex:none;}
+  .limit-num span{font-size:19px;font-weight:700;margin-left:2px;}
+  .limit-cap{display:flex;flex-direction:column;gap:3px;font-size:14.5px;color:var(--ink);}
+  .limit-cap b{font-weight:700;}
+  .limit-sub{font-size:12px;color:var(--ink-soft);}
+  .co-intro{margin:8px 0 4px;font-size:13.5px;color:var(--ink-soft);line-height:1.6;}
+  .co-h{font-weight:700;font-size:13.5px;margin:14px 0 2px;}
+  .co-h.co-do{color:var(--green);}
+  .co-h.co-dont{color:var(--terra);}
+  .co-body ul.items li{padding:7px 0;}
+  .co-warn{margin:14px 0 2px;padding:10px 12px;font-size:13.5px;line-height:1.6;
+    background:var(--saffron-wash);border-radius:10px;color:var(--ink);}
+
+  /* ---------- 行李分組：暖色標頭卡片（對齊每日行程） ---------- */
+  .lgroup{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    margin-top:10px;overflow:hidden;}
+  .lgroup:first-child{margin-top:0;}
+  .lgroup-h{display:flex;align-items:center;gap:10px;padding:11px 15px;
+    background:var(--raise);border-bottom:1px solid var(--line);}
+  .lgroup-h .lgi{font-size:19px;flex:none;line-height:1;color:var(--azul);}
+  .lgroup-h .lgn{font-size:15.5px;font-weight:800;color:var(--ink);flex:1;min-width:0;letter-spacing:-.01em;}
+  .lgroup-h .lgc{font-family:var(--font-util);font-size:12px;color:var(--ink-soft);flex:none;}
+  details.lgroup > summary{list-style:none;cursor:pointer;}
+  details.lgroup > summary::-webkit-details-marker{display:none;}
+  details.lgroup:not([open]) > summary.lgroup-h{border-bottom:none;}
+  .lgroup-h .lg-caret{color:var(--ink-soft);transition:transform .2s;flex:none;margin-left:2px;font-size:13px;}
+  details.lgroup[open] > summary .lg-caret{transform:rotate(180deg);}
+  .lgroup-body{padding:2px 15px 10px;}
+  .lgroup-body > .pitem:first-child,.lgroup-body > .kv:first-child,
+  .lgroup-body > .field:first-child,
+  .lgroup-body > ul.items:first-child > li:first-child{border-top:none;}
+  .lgroup-body > .limit:first-child{margin-top:12px;}
+  /* 打包程度圖例 */
+  .pack-legend{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;
+    margin:18px 6px 6px;font-size:12.5px;color:var(--ink-soft);}
+  .pack-legend .pl-label{font-weight:700;color:var(--ink);}
+  .pack-legend .pl-item{display:inline-flex;align-items:center;gap:6px;}
+  .pack-legend .lv-dot{margin:0;}
 
   /* ---------- 每日行程 timeline ---------- */
   .seg{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px 12px;margin-top:12px;}
@@ -255,15 +300,15 @@
    gender：女 / 男　role：留空＝團員　lug：樂器行李
    room：馬德里 8/26–8/28 房號與室友（no 房號、mate 室友）　notes：個人專屬提醒 */
 const MEMBERS = [
-  { name:"楊倩姿", instrument:"揚琴", gender:"女", role:"", lug:{ status:"待確認" }, stand:{ note:"待確認（蘇亮誠或許可借一支）" }, room:{no:"6", mate:"陳妡萌（＋1 小孩）"}, notes:"" },
+  { name:"楊倩姿", instrument:"揚琴", gender:"女", role:"", lug:{ status:"待確認" }, stand:{ note:"待確認（楊政穎或許可借一支）" }, room:{no:"6", mate:"陳妡萌（＋1 小孩）"}, notes:"" },
   { name:"葉祖昀", instrument:"琵琶", gender:"女", role:"", lug:{ case:"長109 × 寬37 × 高20 cm ・ 5.7kg", boxing:"裝在一大紙箱，中間塞舞衣戲服等緩衝；琴盒內塞泡棉保護琴頭。" }, stand:{bring:false, note:"與林博欣共用一支（由林博欣攜帶）"}, room:{no:"13", mate:"林博欣"}, notes:"" },
   { name:"林博欣", instrument:"琵琶", gender:"女", role:"", lug:{ case:"長108 × 寬36 × 高19 cm ・ 5.2kg", boxing:"裝在一大紙箱，中間塞舞衣戲服等緩衝；琴盒內塞泡棉保護琴頭。" }, stand:{bring:true, kg:"1.06kg", note:"與葉祖昀共用"}, room:{no:"13", mate:"葉祖昀"}, notes:"" },
   { name:"程郁茹", instrument:"中阮", gender:"女", role:"", lug:{ case:"長110 × 寬46 × 高15 cm ・ 4kg", boxing:"裝在一大紙箱，中間塞舞衣戲服等緩衝；琴盒內塞泡棉保護琴頭。", status:"託運" }, stand:{bring:true, kg:"1.2kg"}, room:{no:"15", mate:"葉紘辰"}, notes:"" },
   { name:"葉紘辰", instrument:"打擊／嗩吶", gender:"女", role:"", lug:{ status:"託運", boxing:"需跟小梁老師討論", note:"打擊樂器需先盤點清單；嗩吶託運需告知小梁老師。" }, stand:{ note:"與林伽羽共用，兩人帶一支即可（1.2kg／1.14kg）" }, room:{no:"15", mate:"程郁茹"}, notes:"" },
   { name:"趙佑恩", instrument:"二胡", gender:"男", role:"", lug:{ inst:"長81 × 寬13 cm ・ 0.95kg", case:"長88 × 寬18 × 高7 cm ・ 3.6kg", status:"可能需硬殼直接託運（待確認）" }, stand:{bring:true, kg:"1.1kg", note:"與盧郁涵共用"}, room:{no:"5", mate:"楊政穎"}, notes:"" },
   { name:"盧郁涵", instrument:"二胡", gender:"女", role:"", lug:{ inst:"長81 × 寬13 cm", case:"長90 × 寬17 × 高7 cm ・ 2.95kg", status:"可能需硬殼直接託運（待確認）" }, stand:{bring:false, note:"與趙佑恩共用（由趙佑恩攜帶）"}, room:{no:"14", mate:"林伽羽"}, notes:"" },
-  { name:"蘇亮誠", instrument:"笛子", gender:"男", role:"", lug:{ status:"待確認", note:"若不能隨身，可能需與揚琴一起裝箱。" }, stand:{bring:true, kg:"1.1kg", note:"與楊政穎共用；能否再借楊倩姿一支待確認"}, room:{no:"4", mate:"陳彤霖"}, notes:"" },
-  { name:"楊政穎", instrument:"笙", gender:"男", role:"", lug:{ case:"長92 × 寬17 × 高15 cm ・ 5.9kg", boxing:"硬殼直接託運。", status:"託運" }, stand:{bring:true, kg:"1kg", note:"與蘇亮誠共用"}, room:{no:"5", mate:"趙佑恩"}, notes:"" },
+  { name:"蘇亮誠", instrument:"笛子", gender:"男", role:"", lug:{ status:"待確認", note:"若不能隨身，可能需與揚琴一起裝箱。" }, stand:{bring:false, note:"沒自帶，與楊政穎共用一支（由楊政穎攜帶）"}, room:{no:"4", mate:"陳彤霖"}, notes:"" },
+  { name:"楊政穎", instrument:"笙", gender:"男", role:"", lug:{ case:"長92 × 寬17 × 高15 cm ・ 5.9kg", boxing:"硬殼直接託運。", status:"託運" }, stand:{bring:true, kg:"1kg", note:"與蘇亮誠共用；能否再借楊倩姿一支待確認"}, room:{no:"5", mate:"趙佑恩"}, notes:"" },
   { name:"林伽羽", instrument:"打擊", gender:"女", role:"", lug:{ status:"託運", boxing:"需跟小梁老師討論", note:"打擊樂器需先盤點清單。" }, stand:{ note:"與葉紘辰共用，兩人帶一支即可（1.2kg／1.14kg）" }, room:{no:"14", mate:"盧郁涵"}, notes:"" },
 ];
 
@@ -278,90 +323,109 @@ const NOTES = [
 /* 建議程度：lv 1=必帶 2=建議 3=可選（顏色見 .lv1/.lv2/.lv3）。Sophy 之後會微調。
    物件格式：{ n：品名， q：量詞/數量（放「：」後面）, g：限定性別"女", lv：建議程度 } */
 const PACK_TRIP = [
-  {n:"歐洲 eSIM（西葡通用）", q:"1 張", lv:1, d:"建議在台灣先買好、設定好再出發。宿舍 WiFi 常不穩，主要靠手機熱點分享；一張西葡通用的方案最省事。"},
-  {n:"「一轉多」延長線", q:"1 條", lv:2, d:"宿舍插座常常不夠用，一條台規延長線接在轉接頭後面，全房的人都能充。"},
-  {n:"耳塞、眼罩（深夜慶典＋多人房）", q:"各 1", lv:1, d:"南部藝術節常通宵狂歡、住宿又是多人房，這兩樣是能不能補到眠的關鍵，別省。"},
-  {n:"電解質（南段補水）", q:"適量", lv:2},
-  {n:"降溫濕巾（南段無冷氣）", q:"1–2 包", lv:2},
-  {n:"台灣意象小物（設攤／交流）", q:"幾樣", lv:2},
-  {n:"歐元現金＋海外可刷信用卡", q:"", lv:1},
+  {n:"歐洲 eSIM／SIM 卡（西葡通用）", q:"1 張", lv:1, d:"建議在台灣先買好、設定好再出發。宿舍 WiFi 常不穩，主要靠手機熱點分享；一張西葡通用的方案最省事。"},
+  {n:"萬用轉接頭", q:"1 個", lv:1, d:"西葡是圓頭 C／F 型插座，手機、筆電充電都要靠它。"},
+  {n:"「一轉多」延長線", q:"1 條", lv:2, d:"宿舍插座常常不夠用，一條台規延長線接在轉接頭後面，全房的人都能充。可協調一房帶一條。"},
+  {n:"歐元現金", q:"", lv:1, d:"吃住大部分由藝術節負責，花錢機會不多，歐洲多數店家可刷卡；現金別帶太多、要分開放比較安全。"},
+  {n:"海外可刷信用卡", q:"", lv:2, d:"當主要支付工具，搭配少量現金即可；出發前記得開通海外交易、記下掛失電話。"},
+  {n:"台灣意象小物（交流／交換禮物）", q:"幾樣", lv:2, d:"藝術節上會跟各國團員交流、交換小禮，帶一些台灣特色小物很實用。"},
+  {n:"耳塞", q:"", lv:3, d:"住宿是多人房，若在意睡眠品質建議準備。"},
+  {n:"眼罩", q:"", lv:3, d:"住宿是多人房，若在意睡眠品質建議準備。"},
 ];
 /* 老師提供的物品參考表（分類），已標建議程度 */
 const PACK_CATEGORIES = [
   { cat:"服裝", icon:"👕", items:[
     {n:"換洗內衣褲", q:"2–3 套", lv:1},
-    {n:"平常排練用服", q:"2–3 件", lv:1},
-    {n:"團服、舞蹈大外套", q:"依規定", lv:1},
-    {n:"演出用小白襪", q:"1–2 雙", lv:1},
-    {n:"演出服", q:"", lv:1},
-    {n:"換洗衣服（逛街裝）", q:"2 套", lv:2},
-    {n:"禦寒衣服", q:"1–2 套", lv:2},
+    {n:"團服 T-shirt", q:"3 件", lv:1},
+    {n:"團體風衣外套", q:"1 件", lv:1},
+    {n:"演出服", q:"2 套", lv:1},
+    {n:"演出用小白襪", q:"2 雙", lv:1},
+    {n:"換洗衣服（逛街裝）", q:"2 套", lv:1, d:"別帶太多件重量重的牛仔褲，很佔重量。"},
+    {n:"禦寒衣物", q:"", lv:3},
   ]},
   { cat:"鞋子", icon:"👟", items:[
-    {n:"搭配中式服裝的鞋", q:"", lv:1},
     {n:"演出鞋", q:"", lv:1},
     {n:"拖鞋（可穿去浴室洗澡）", q:"1 雙", lv:2},
     {n:"涼鞋或布鞋（逛街穿）", q:"1 雙", lv:2},
   ]},
+  { cat:"防曬避暑", icon:"☀️", items:[
+    {n:"防曬乳", q:"", lv:2},
+    {n:"帽子", q:"", lv:2},
+    {n:"太陽眼鏡", q:"", lv:2},
+    {n:"降溫濕巾", q:"1–2 包", lv:2},
+    {n:"傘（遮陽兼擋雨）", q:"1 支", lv:3},
+    {n:"小電扇", q:"", lv:3, d:"內建鋰電池的小電扇只能放隨身、不可託運；加上南部氣溫太高、電扇效果有限，帶不帶自行斟酌。"},
+  ]},
   { cat:"髮飾", icon:"🎀", items:[
-    {n:"黑色髮帶", q:"2–3 條", g:"女", lv:1},
-    {n:"髮夾", q:"1 大包", g:"女", lv:1},
-    {n:"黑色橡皮筋", q:"1 大包", g:"女", lv:1},
+    {n:"黑色髮夾", q:"1 大包", g:"女", lv:2},
+    {n:"黑色橡皮筋", q:"1 大包", g:"女", lv:2},
     {n:"齒狀梳／扁梳", q:"", lv:2},
-    {n:"髮膠", q:"", lv:2},
-    {n:"演出用耳環（短版垂墜）", q:"1–2 副", g:"女", lv:2},
-    {n:"別針", q:"1 包", lv:2},
-    {n:"搭配中式服裝的髮飾", q:"", g:"女", lv:2},
+    {n:"演出用耳環（短版垂墜）", q:"1–2 副", g:"女", lv:1},
+    {n:"搭配中式服裝的髮飾", q:"", g:"女", lv:1, d:"演出用的髮簪舞團會幫忙準備（詳見「演出・須知」）；其餘搭配中式服裝的小髮飾自備。"},
+    {n:"髮膠", q:"", lv:3, d:"噴霧式髮膠（尤其金屬罐）屬壓縮氣體，隨身要 ≤100ml、託運也有限量；建議改帶非噴霧的髮蠟／髮泥／小罐定型液比較省事。"},
   ]},
   { cat:"衛生用品", icon:"🧴", items:[
     {n:"洗面乳", q:"", lv:1},
-    {n:"洗髮乳", q:"", lv:1},
-    {n:"沐浴乳或香皂", q:"", lv:1},
+    {n:"卸妝用品", q:"", g:"女", lv:1},
+    {n:"洗髮乳", q:"", lv:1, d:"可到當地購買，也可兩人共用一罐分擔重量。要託運的話請用夾鏈袋或防水袋打包，避免在行李箱裡爆開。"},
+    {n:"沐浴乳或香皂", q:"", lv:1, d:"同洗髮乳：可當地買或共用，託運請防水打包。"},
+    {n:"潤髮乳", q:"", lv:2, d:"同洗髮乳：可當地買或共用，託運請防水打包。"},
     {n:"牙膏、牙刷", q:"", lv:1},
-    {n:"毛巾／浴巾", q:"", lv:1},
-    {n:"防曬油", q:"", lv:1},
+    {n:"洗衣精／洗衣皂", q:"", lv:1, d:"要在宿舍手洗衣服。同洗髮乳：可共用、託運請防水打包。"},
     {n:"化妝品", q:"", g:"女", lv:1, d:"演出需要女生淡妝、乾淨有精神。當地品牌與色號跟台灣不同，建議整組自備：粉底、蜜粉、海綿、口紅、眼影、眼線液、假睫毛、腮紅、棉花棒、化妝棉、化妝器具等。"},
+    {n:"保養品", q:"", lv:1},
     {n:"生理用品（衛生棉等）", q:"自備足量，當地品牌規格不同", g:"女", lv:1},
-    {n:"洗衣精／衣皂／衣粉", q:"", lv:2},
-    {n:"保養品", q:"", lv:2},
-    {n:"卸妝品", q:"", lv:2},
-    {n:"衛生紙", q:"", lv:2},
+    {n:"衛生紙", q:"", lv:2, d:"強烈建議自備一大包或攜帶型；最好選可溶於馬桶的材質，當地公廁不一定有。"},
+    {n:"身體乳", q:"", lv:2},
+    {n:"牙線", q:"", lv:3},
     {n:"敷面膜", q:"", lv:3},
     {n:"香水／體香劑", q:"", lv:3},
-    {n:"牙線", q:"", lv:3},
-    {n:"洗碗精", q:"", lv:3},
   ]},
-  { cat:"藥品", icon:"💊", items:[
-    {n:"個人藥品", q:"", lv:1, d:"歐洲藥局買藥多數需要醫師處方，常用藥務必自備：感冒藥、腸胃藥、止痛藥、隱形眼鏡藥水、暈車藥、透氣膠帶、OK 繃等。慢性病藥另附中英文藥名清單，過海關備查。"},
+  { cat:"藥品・保健品", icon:"💊", items:[
+    {n:"常備成藥", q:"", lv:1, d:"可直接掛家醫科，告知要出國一個月，請醫師開消炎、止痛、胃藥、退燒等常用藥。歐洲藥局多數需醫師處方，務必在台灣先備齊；慢性病藥另附中英文藥名清單過海關備查。"},
+    {n:"暈車藥", q:"", lv:2, d:"拉車時間很長，會暈車的建議備著。"},
+    {n:"其他個人藥品", q:"", lv:2, d:"如酸痛貼布、過敏藥、痘痘藥、隱形眼鏡藥水、OK 繃等。"},
+    {n:"保健品", q:"", lv:3, d:"發泡錠、維他命等。"},
   ]},
   { cat:"其他", icon:"🧳", items:[
-    {n:"護照及影本 ＋ 與護照不同的 2 吋照片", q:"", lv:1},
-    {n:"手機充電線、充電器", q:"", lv:1},
-    {n:"變壓器 230V ＋ 三插頭", q:"", lv:1, d:"西葡是 230V、圓頭 C／F 型插座。多數手機／筆電充電器本身支援 100–240V(看標示)，只要帶轉接頭即可；真正不支援 230V 的電器（部分吹風機、電湯匙）才需要變壓器。"},
-    {n:"身分證影本（可掃描存手機）", q:"", lv:2},
-    {n:"個人眼鏡", q:"", lv:2},
-    {n:"太陽眼鏡", q:"", lv:2},
-    {n:"帽子", q:"", lv:2},
-    {n:"傘", q:"1 支", lv:2},
-    {n:"小電扇", q:"", lv:2},
-    {n:"頸枕", q:"", lv:2},
-    {n:"小腰包（防扒）", q:"", lv:2},
-    {n:"水壺／杯", q:"1 個", lv:2},
-    {n:"吹風機", q:"", lv:2},
-    {n:"衣架、夾子（掛戲服／個人衣物）", q:"7–8 枝", lv:2},
-    {n:"童軍繩／曬衣繩", q:"2 條", lv:2},
-    {n:"塑膠袋", q:"幾個", lv:3},
-    {n:"針線盒", q:"", lv:3},
-    {n:"筆記本／紙筆", q:"", lv:3},
-    {n:"膠水", q:"", lv:3},
-    {n:"指甲刀", q:"", lv:3},
-    {n:"書籍", q:"", lv:3},
-    {n:"食物（泡麵、零食）", q:"", lv:3},
+    {n:"充電線、充電器", q:"", lv:1},
+    {n:"衣架、衣夾", q:"7–8 組", lv:1, d:"要在宿舍晾衣服。"},
+    {n:"吹風機", q:"", lv:2, d:"可協調一房一人帶，並注意電壓（西葡 230V，確認吹風機支援或搭配變壓器）。"},
+    {n:"個人眼鏡", q:"", lv:2, d:"若有備用，可多帶一副以防遺失或損壞。"},
+    {n:"水壺／保溫杯", q:"1 個", lv:2},
+    {n:"童軍繩／曬衣繩", q:"", lv:2, d:"宿舍晾衣用，可協調一人攜帶。"},
+    {n:"塑膠袋", q:"幾個", lv:2},
+    {n:"指甲刀", q:"", lv:2, d:"有刀刃，記得放託運、別放隨身。"},
+    {n:"食物（泡麵、湯包、即食調理包）", q:"", lv:2, d:"歐洲食物吃久了容易想念台灣味，可帶簡單調味料、不含肉的加熱即食調理食品（含肉、乳製品不可入境歐盟）。"},
+    {n:"頸枕", q:"", lv:3, d:"坐車時間長，可依個人習慣攜帶。"},
+    {n:"小腰包（防扒）", q:"", lv:3},
     {n:"碗筷", q:"", lv:3},
-    {n:"電湯匙", q:"", lv:3},
-    {n:"禮物", q:"", lv:3},
-    {n:"名片", q:"", lv:3},
+    {n:"書籍", q:"", lv:3},
   ]},
+];
+/* 登機隨身行李 Do/Don't */
+const CARRYON = {
+  do:[
+    "護照、機票、重要證件（貴重證件一律不託運）",
+    "歐元現金、信用卡、貴重物品",
+    "<b>行動電源、備用鋰電池</b>（航空規定：只能隨身，一律不可託運）",
+    "手機、充電線、萬用轉接頭",
+    "常用藥品、隱形眼鏡／眼鏡（怕託運寄丟）",
+    "一到兩套換洗內衣褲＋一件薄上衣（萬一託運延誤或寄丟，先撐過頭一兩天）",
+    "一件薄外套（機艙冷）",
+  ],
+  dont:[
+    "超過 100ml 的液體、膏狀、噴霧（洗髮沐浴乳、大罐防曬、水——過不了安檢，放託運）",
+    "剪刀、指甲刀、水果刀等有刀刃的（放託運）",
+    "髮膠等噴霧金屬罐（隨身要 ≤100ml，建議直接放託運或改非噴霧款）",
+    "打火機（航空兩邊都有限制，建議別帶）",
+  ],
+};
+/* 託運行李：省重量小技巧 */
+const SAVEWEIGHT = [
+  "超重時<b>先砍掉「可選」</b>的項目。",
+  "<b>兩人合用一個行李箱</b>——一個空箱本身就佔 3–4kg，共用等於省下一整個空箱的重量。",
+  "<b>會重複的東西</b>（延長線、吹風機、曬衣繩、洗髮沐浴乳……）先講好誰帶，一房共用就好，不用人人都帶。",
 ];
 
 /* ---------- 演出注意事項 ---------- */
@@ -522,7 +586,7 @@ function lugCard(m){
     rows.push(row("譜架", txt));
   }
   if(L.note) rows.push(row("備註", L.note));
-  return `<div class="lcard"><div class="lcard-h"><span class="ci">🎻</span><span class="cn">樂器相關行李</span></div>${rows.join("")}</div>`;
+  return lgroup("🎻","樂器相關行李", rows.join(""));
 }
 
 /* ---- 分頁 ---- */
@@ -594,17 +658,23 @@ function panelPacking(m){
     const detail = o.d ? `<div class="detail" hidden>${fmt(o.d)}</div>` : "";
     return `<div class="pitem"><div class="pitem-row"><label class="check" data-key="${chkKey(m,i++)}"><input type="checkbox"><span class="ctext"><span class="lv-dot ${lv.c}" title="${lv.t}"></span>${gtag}${o.n}${qty}</span></label>${info}</div>${detail}</div>`;
   };
-  const cat = (icon, name, items, open) =>
-    `<details class="lcard"${open?" open":""}><summary class="lcard-h"><span class="ci">${icon}</span><span class="cn">${name}</span><span class="cc">${items.length} 項</span><span class="caret">▾</span></summary><div class="cat-body">${items.map(packItem).join("")}</div></details>`;
-  const legend = `<div class="legend"><span class="lg"><span class="dot lv1"></span><b>必帶</b></span><span class="lg"><span class="dot lv2"></span><b>建議</b></span><span class="lg"><span class="dot lv3"></span><b>可選</b></span></div>`;
-  const notice = `<div class="premise">每人託運限重 <span class="kg">15kg</span> <b>（實際以最終公告為準）</b>。除了超重先砍「可選」，也建議<b>兩人合用一個行李箱</b>——一個空箱本身就佔 3–4kg，共用等於省下一個空箱的重量，能多留給真正要帶的東西。</div>`;
+  const items = (arr) => arr.map(packItem).join("");
+  const legend = `<div class="pack-legend"><span class="pl-label">打包程度</span><span class="pl-item"><i class="lv-dot lv1"></i>必帶</span><span class="pl-item"><i class="lv-dot lv2"></i>建議</span><span class="pl-item"><i class="lv-dot lv3"></i>可選</span></div>`;
+  const checkedBody = `<div class="limit"><div class="limit-num">15<span>kg</span></div><div class="limit-cap"><b>每人託運限重</b><span class="limit-sub">實際以最終公告為準</span></div></div>`
+    + `<div class="co-h">省重量小技巧</div><ul class="items">${bullets(SAVEWEIGHT)}</ul>`;
+  const carryonBody = `<p class="co-intro">歐洲線託運偶爾會延誤或寄丟，重要、貴重、怕摔的東西一律隨身帶上機。</p>`
+    + `<div class="co-h co-do">✅ 一定放隨身</div><ul class="items">${bullets(CARRYON.do)}</ul>`
+    + `<div class="co-h co-dont">⛔ 不能放隨身（要託運）</div><ul class="items">${bullets(CARRYON.dont)}</ul>`
+    + `<p class="co-warn">⚠️ <b>行動電源、鋰電池剛好相反：只能隨身、絕不可託運</b>，這是航空硬規定。</p>`;
   let html = `<div class="panel">`;
   if(m){ const lc = lugCard(m); if(lc) html += lc; }
-  html += `<div class="sublabel">個人行李</div>${notice}${legend}`;
-  html += cat("✦", "西葡特別提醒", PACK_TRIP, true);
+  html += lgroup("🎒","登機隨身行李", carryonBody);
+  html += lgroup("🧳","託運行李", checkedBody);
+  html += legend;
+  html += lgroup("✦","西葡特別提醒", items(PACK_TRIP), PACK_TRIP.length, true);
   PACK_CATEGORIES.forEach(c => {
-    const items = c.items.filter(o => !o.g || !m || m.gender===o.g);
-    if(items.length) html += cat(c.icon, c.cat, items, false);
+    const list = c.items.filter(o => !o.g || !m || m.gender===o.g);
+    if(list.length) html += lgroup(c.icon, c.cat, items(list), list.length, true);
   });
   return html + `</div>`;
 }
@@ -612,20 +682,33 @@ function panelPacking(m){
 /* ---- 演出・須知（合併）---- */
 function panelInfo(m){
   const field = (l,t) => `<div class="field"><span class="flab">${l}</span><span class="ftext">${fmt(t)}</span></div>`;
-  const card = (icon,name,body) => `<div class="lcard"><div class="lcard-h"><span class="ci">${icon}</span><span class="cn">${name}</span></div>${body}</div>`;
+  const card = (icon,name,body) => lgroup(icon,name,body);
   const g = m ? m.gender : "";
   const makeup = g ? MAKEUP[g] : (MAKEUP["女"] + "<br><span style='color:var(--ink-soft)'>（男生：頭髮梳乾淨、整齊即可）</span>");
   const mkLabel = g ? `妝髮（${g}生）` : "妝髮";
+  const notes = NOTES.slice();
+  const haircut = "出發前記得去<b>剪頭髮</b>：這趟將近一個月，頭髮會長不少。";
+  if(g==="男") notes.push(haircut);
+  else if(!g) notes.push("<b>（男生）</b>"+haircut);
   return `<div class="panel">`
     + card("🎵","曲目", SETLIST.map(f=>field(f.label,f.text)).join(""))
     + card("💄","妝髮・服裝", field(mkLabel, makeup) + field("服裝", COSTUME))
-    + card("📋","行前須知", `<ul class="items">${bullets(NOTES)}</ul>`)
+    + card("📋","行前須知", `<ul class="items">${bullets(notes)}</ul>`)
     + card("📞","緊急聯絡", `<ul class="items">${bullets(PRACTICAL)}</ul>`)
     + `</div>`;
 }
 
 /* ---- 條列小工具 ---- */
 function bullets(arr){ return arr.map(t=>`<li><span class="bullet">◆</span><span class="item-text">${fmt(t)}</span></li>`).join(""); }
+/* 行李分組：暖色標頭卡片（對齊每日行程視覺語言）。collapsible=true 時可用 toggle 收合。 */
+function lgroup(icon, name, body, count, collapsible){
+  const c = (count!=null) ? `<span class="lgc">${count} 項</span>` : "";
+  const head = `<span class="lgi">${icon}</span><span class="lgn">${name}</span>${c}`;
+  if(collapsible){
+    return `<details class="lgroup" open><summary class="lgroup-h">${head}<span class="lg-caret">▾</span></summary><div class="lgroup-body">${body}</div></details>`;
+  }
+  return `<section class="lgroup"><div class="lgroup-h">${head}</div><div class="lgroup-body">${body}</div></section>`;
+}
 
 /* ---- 組裝 ---- */
 function idCard(m){
