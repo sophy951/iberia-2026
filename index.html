@@ -323,6 +323,7 @@ const NOTES = [
 /* 建議程度：lv 1=必帶 2=建議 3=可選（顏色見 .lv1/.lv2/.lv3）。Sophy 之後會微調。
    物件格式：{ n：品名， q：量詞/數量（放「：」後面）, g：限定性別"女", lv：建議程度 } */
 const PACK_TRIP = [
+  {n:"平板電腦（樂譜）", q:"", lv:1, d:"我們的演出樂譜都存在平板裡，一定要記得帶。出發前先<b>充飽電</b>、確認譜都在裡面；屬貴重電子產品，<b>建議隨身上機、不要託運</b>。"},
   {n:"歐洲 eSIM／SIM 卡（西葡通用）", q:"1 張", lv:1, d:"建議在台灣先買好、設定好再出發。宿舍 WiFi 常不穩，主要靠手機熱點分享；一張西葡通用的方案最省事。"},
   {n:"萬用轉接頭", q:"1 個", lv:1, d:"西葡是圓頭 C／F 型插座，手機、筆電充電都要靠它。"},
   {n:"「一轉多」延長線", q:"1 條", lv:2, d:"宿舍插座常常不夠用，一條台規延長線接在轉接頭後面，全房的人都能充。可協調一房帶一條。"},
@@ -594,13 +595,10 @@ function lugCard(m){
     const txt = S.bring ? `自帶 1 支 · ${S.kg||""}${S.note?`（${S.note}）`:""}` : (S.note||"");
     rows.push(row("譜架", txt));
   }
-  if(L.note) rows.push(row("備註", L.note));
   const spares = [...new Set(typesOf(m.instrument).map(t => SPARES[t]).filter(Boolean))].join("、");
-  const care = [];
-  if(spares) care.push(`依你的樂器準備<b>備品</b>：${spares}。`);
-  care.push(`記得帶<b>平板</b> —— 你的譜都在裡面，建議<b>隨身別託運</b>。`);
-  const body = rows.join("") + `<div class="co-h">別忘了帶</div><ul class="items">${bullets(care)}</ul>`;
-  return lgroup("🎻","樂器相關行李", body);
+  if(spares) rows.push(row("備品", spares));
+  if(L.note) rows.push(row("備註", L.note));
+  return lgroup("🎻","樂器相關行李", rows.join(""));
 }
 
 /* ---- 分頁 ---- */
