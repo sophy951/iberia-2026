@@ -538,6 +538,15 @@ const TIPS_INSTRUMENT = {
   percussion:["大型打擊樂器<b>多半由主辦提供</b> —— 出發前跟團務核對<b>器材清單</b>，缺什麼要補帶。","個人小物（鼓棒、mallet、專用配件）自備，通常不外借。"],
   general:  ["跟團務確認你的樂器要<b>託運、上機、還是當地租借</b>，以及南段乾熱的保養方式。"],
 };
+/* 依樂器要自備的備品／消耗品（給 lugCard 的「別忘了帶」用） */
+const SPARES = {
+  plucked:   "備弦、義甲／指套",
+  hammered:  "備用琴竹（琴槌）、備弦、調音扳手",
+  bowed:     "備弦、松香",
+  wind:      "笛膜／簧片（多備幾份）、清潔通條",
+  percussion:"個人鼓棒、mallet、專用配件",
+  general:   "",
+};
 const TIPS_GENDER = {
   "女":["貴重物品隨身、夜間外出結伴。","生理用品建議<b>自備足量</b>（當地品牌規格不同）。"],
   "男":["貴重物品隨身、夜間外出結伴。"],
@@ -586,7 +595,12 @@ function lugCard(m){
     rows.push(row("譜架", txt));
   }
   if(L.note) rows.push(row("備註", L.note));
-  return lgroup("🎻","樂器相關行李", rows.join(""));
+  const spares = [...new Set(typesOf(m.instrument).map(t => SPARES[t]).filter(Boolean))].join("、");
+  const care = [];
+  if(spares) care.push(`依你的樂器準備<b>備品</b>：${spares}。`);
+  care.push(`記得帶<b>平板</b> —— 你的譜都在裡面，建議<b>隨身別託運</b>。`);
+  const body = rows.join("") + `<div class="co-h">別忘了帶</div><ul class="items">${bullets(care)}</ul>`;
+  return lgroup("🎻","樂器相關行李", body);
 }
 
 /* ---- 分頁 ---- */
